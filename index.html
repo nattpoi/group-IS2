@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Periodic Table (118 Elements) - English & Thai Voice</title>
+    <title>Interactive Periodic Table (118 Elements) - Easy Colors & Bilingual Voice</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #1a1a2e;
+            background-color: #121214;
             color: #ffffff;
             display: flex;
             flex-direction: column;
@@ -17,27 +17,28 @@
         }
 
         h1 {
-            color: #00d2fc;
+            color: #ffffff;
             margin-bottom: 5px;
-            text-shadow: 0 0 10px rgba(0, 210, 252, 0.5);
+            font-size: 28px;
         }
 
         p.subtitle {
             color: #a0aec0;
             margin-bottom: 20px;
+            font-size: 14px;
         }
 
         /* 🎯 โหมดทำแบบทดสอบ */
         .quiz-container {
-            background: #162447;
-            border: 2px solid #00d2fc;
+            background: #1a1a1e;
+            border: 1px solid #3a3a3c;
             border-radius: 12px;
             padding: 20px;
             max-width: 600px;
             width: 100%;
             margin-bottom: 25px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(0, 210, 252, 0.2);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
         .level-buttons, .options-container {
@@ -49,20 +50,19 @@
         }
 
         button {
-            background-color: #1f4068;
+            background-color: #2c2c2e;
             color: white;
-            border: none;
+            border: 1px solid #3a3a3c;
             padding: 10px 20px;
-            font-size: 16px;
+            font-size: 15px;
             border-radius: 6px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
         button:hover {
-            background-color: #00d2fc;
-            color: #1a1a2e;
-            font-weight: bold;
+            background-color: #0a84ff;
+            border-color: #0a84ff;
         }
 
         .option-btn {
@@ -70,28 +70,27 @@
             max-width: 260px;
             padding: 12px;
             font-size: 14px;
-            background-color: #2e3440;
-            border: 1px solid #4c566a;
+            background-color: #2c2c2e;
         }
 
         /* ตารางธาตุหลัก 18 คอลัมน์ */
         .periodic-table {
             display: grid;
-            grid-template-columns: repeat(18, minmax(55px, 1fr));
-            gap: 5px;
+            grid-template-columns: repeat(18, minmax(58px, 1fr));
+            gap: 6px;
             max-width: 1300px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: #1c1c1e;
             padding: 15px;
             border-radius: 12px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
 
         /* ตารางกลุ่ม Lanthanide และ Actinide แยกด้านล่าง */
         .f-block-table {
             display: grid;
-            grid-template-columns: repeat(18, minmax(55px, 1fr));
-            gap: 5px;
+            grid-template-columns: repeat(18, minmax(58px, 1fr));
+            gap: 6px;
             max-width: 1300px;
             width: 100%;
             margin-top: 15px;
@@ -99,71 +98,82 @@
         }
 
         .element {
-            background-color: #2e3440;
-            border: 1px solid #4c566a;
-            border-radius: 4px;
+            background-color: #2c2c2e;
+            border-radius: 6px;
             padding: 6px 2px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.15s ease-in-out;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 65px;
+            min-height: 70px;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .element:hover {
-            transform: scale(1.15);
+            transform: scale(1.18);
             z-index: 10;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
-            border-color: #fff;
+            box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+            border: 1px solid #fff !important;
         }
 
-        .atomic-number { font-size: 10px; text-align: left; padding-left: 3px; color: #e5e9f0; font-weight: bold; }
-        .symbol { font-size: 18px; font-weight: bold; }
-        .name { font-size: 9px; color: #d8dee9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .atomic-number { font-size: 11px; text-align: left; padding-left: 5px; font-weight: bold; color: #333333; }
+        .symbol { font-size: 20px; font-weight: bold; color: #111111; margin: 2px 0; }
+        .name { font-size: 9px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 2px; }
 
-        /* สีแบ่งกลุ่มธาตุ */
-        .alkali-metal { background-color: #ff66cc; color: #000; }
-        .alkaline-earth { background-color: #b366ff; color: #fff; }
-        .transition-metal { background-color: #80d4ff; color: #000; }
-        .basic-metal { background-color: #ffb366; color: #000; }
-        .semimetal { background-color: #33cc33; color: #fff; }
-        .nonmetal { background-color: #3399ff; color: #fff; }
-        .halogen { background-color: #ffff66; color: #000; }
-        .noble-gas { background-color: #ff9933; color: #000; }
-        .lanthanide { background-color: #ccff33; color: #000; }
-        .actinide { background-color: #ff3333; color: #fff; }
+        /* 🎨 พาเลตสีใหม่ (โทนพาสเทล ดูง่าย สบายตา สไตล์โมเดิร์น) */
+        .nonmetal        { background-color: #ffb3ba; } /* ชมพูอ่อน */
+        .noble-gas       { background-color: #ffdfba; } /* ส้มพาสเทล */
+        .alkali-metal    { background-color: #ffffba; } /* เหลืองพาสเทล */
+        .alkaline-earth  { background-color: #baffc9; } /* เขียวมินต์ */
+        .semimetal       { background-color: #bae1ff; } /* ฟ้าอ่อน */
+        .halogen         { background-color: #e8cdff; } /* ม่วงอ่อน */
+        .basic-metal     { background-color: #fed7ff; } /* ชมพูอมม่วง */
+        .transition-metal{ background-color: #d6f5ff; } /* ฟ้าไอซ์บลู */
+        .lanthanide      { background-color: #e2f0cb; } /* เขียวตองอ่อน */
+        .actinide        { background-color: #ffc6ff; } /* พีชเข้ม */
         
+        /* 🎨 กำหนดสีของ "ชื่อเต็มภาษาอังกฤษ" แยกตามกลุ่มธาตุให้ชัดเจน */
+        .nonmetal .name         { color: #d63384; }
+        .noble-gas .name        { color: #e65c00; }
+        .alkali-metal .name     { color: #b38600; }
+        .alkaline-earth .name   { color: #198754; }
+        .semimetal .name        { color: #0d6efd; }
+        .halogen .name          { color: #6f42c1; }
+        .basic-metal .name      { color: #b500b5; }
+        .transition-metal .name { color: #007799; }
+        .lanthanide .name       { color: #557a1a; }
+        .actinide .name         { color: #b30059; }
+
         .empty { visibility: hidden; }
         .f-label {
             grid-column: span 2;
             display: flex;
             align-items: center;
             justify-content: flex-end;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: bold;
-            color: #a0aec0;
+            color: #8e8e93;
             padding-right: 10px;
         }
 
         .info-panel {
             margin-bottom: 20px;
             padding: 15px 30px;
-            background: #162447;
+            background: #1c1c1e;
             border-radius: 8px;
-            border-left: 5px solid #00d2fc;
-            min-width: 400px;
+            border: 1px solid #3a3a3c;
+            min-width: 450px;
             text-align: center;
-            font-size: 20px;
-            font-weight: bold;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
 
     <h1>Periodic Table of the Elements 🧪</h1>
-    <p class="subtitle">คลิกดูธาตุเพื่อฟังชื่อภาษาอังกฤษแท้ แล้วตามด้วยข้อมูลภาษาไทย หรือร่วมสนุกกับแบบทดสอบด้านล่าง</p>
+    <p class="subtitle">ปรับปรุงสีตารางโทนพาสเทลดูง่าย และเปลี่ยนสีชื่อเต็มตามกลุ่มธาตุ (ระบบเสียง Bilingual แก้เพี้ยน Windows/iPhone)</p>
 
     <div class="quiz-container" id="quizContainer">
         <h3 id="quizTitle">🎯 โหมดแบบทดสอบตารางธาตุ</h3>
@@ -376,19 +386,16 @@
         fBlockElements.filter(el => el.row === 2).forEach(el => fContainer.appendChild(createElementCard(el)));
         fContainer.appendChild(document.createElement('div')).className = 'empty';
 
-        // 🌟 โหลดเอนจินแยกเสียง TH และ EN เพื่อความแม่นยำสูงสุด 100% 🌟
+        // โหลดเอนจินเสียง TH และ EN
         let enVoice = null;
         let thVoice = null;
 
         function loadVoices() {
             if ('speechSynthesis' in window) {
                 const voices = window.speechSynthesis.getVoices();
-                
-                // ค้นหาเสียงภาษาอังกฤษสำเนียงแท้สำหรับชื่อธาตุ
                 enVoice = voices.find(v => v.lang.startsWith('en-') && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Daniel') || v.name.includes('Samantha')));
                 if (!enVoice) enVoice = voices.find(v => v.lang.startsWith('en-'));
 
-                // ค้นหาเสียงภาษาไทยสำหรับค่าตัวเลขและหมู่
                 thVoice = voices.find(v => v.lang === 'th-TH' && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Narisa') || v.name.includes('Pattara')));
                 if (!thVoice) thVoice = voices.find(v => v.lang === 'th-TH');
             }
@@ -398,35 +405,32 @@
             loadVoices();
         }
 
-        // 🌟 ฟังก์ชันคิวเสียงแบบ Bilingual (คิวเสียงอังกฤษจบ -> ต่อด้วยไทย) 🌟
+        // ฟังก์ชันระบบเสียงแบบ Bilingual ควบคุมเสียงไม่ให้เพี้ยนบนทุกแพลตฟอร์ม
         function speakElement(element) {
             const displayGroup = element.group ? ` | หมู่ที่: ${element.group}` : ' | กลุ่มพิเศษ (ไม่มีหมู่)';
             infoPanel.innerHTML = `ธาตุ: <strong>${element.name} (${element.sym})</strong> | เลขอะตอม: ${element.num}${displayGroup}`;
             
             if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel(); // ล้างคิวเสียงเก่าทิ้งทันทีเมื่อคลิกตัวใหม่
+                window.speechSynthesis.cancel(); 
 
-                // คิวที่ 1: สั่งให้อ่านชื่อธาตุและสัญลักษณ์เป็นภาษาอังกฤษสำเนียงแท้
-                // บังคับแยกตัวอักษรด้วยช่องว่างเพื่อให้ iPhone/Windows ไม่อ่านรวมกันเป็นคำแปลกๆ
+                // คิวที่ 1: บังคับอ่านชื่อภาษาอังกฤษสำเนียงดั้งเดิมที่ถูกต้อง
                 const spacedSymbol = element.sym.split('').join(' ');
                 const englishText = `${element.name}. Symbol. ${spacedSymbol}.`;
                 
                 const utteranceEN = new SpeechSynthesisUtterance(englishText);
                 utteranceEN.lang = 'en-US';
                 if (enVoice) utteranceEN.voice = enVoice;
-                utteranceEN.rate = 0.85; // ชะลอความเร็วภาษาอังกฤษเล็กน้อยให้ฟังทันง่ายขึ้น
+                utteranceEN.rate = 0.85;
 
-                // คิวที่ 2: สั่งให้อ่านข้อมูล ตัวเลข เลขอะตอม และหมู่เป็นภาษาไทยชัดๆ
+                // คิวที่ 2: พิมพ์ข้อมูลหมู่และค่าตัวเลขเป็นภาษาไทยเสียงนุ่มนวล
                 const groupText = element.group ? `อยู่หมู่ที่ ${element.group}` : 'เป็นธาตุกลุ่มแถวล่างแยกพิเศษ';
                 const thaiText = `, , , มีชื่อไทยว่า, ${element.th}, เลขอะตอม, ${element.num}, , ${groupText}`;
                 
                 const utteranceTH = new SpeechSynthesisUtterance(thaiText);
                 utteranceTH.lang = 'th-TH';
                 if (thVoice) utteranceTH.voice = thVoice;
-                utteranceTH.rate = 0.88; // ความเร็วพอดีๆ ไม่รัว
-                utteranceTH.pitch = 1.0;
+                utteranceTH.rate = 0.88;
 
-                // นำทั้งสองคิวมาต่อกัน (เมื่ออังกฤษพูดจบ ภาษาไทยจะพูดต่อทันทีโดยอัตโนมัติ)
                 window.speechSynthesis.speak(utteranceEN);
                 window.speechSynthesis.speak(utteranceTH);
             }
